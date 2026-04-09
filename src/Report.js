@@ -12,7 +12,7 @@ function Report() {
     axios.get(`http://localhost:5000/report/${id}`, {
       withCredentials: true
     }).then(res => setData(res.data));
-  }, []);
+  }, [id]);
 
   useEffect(() => {
   if (reportRef.current) {

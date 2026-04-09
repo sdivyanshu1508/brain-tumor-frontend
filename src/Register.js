@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function Register() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-
   const [centreName, setCentreName] = useState("");
   const [address, setAddress] = useState("");
   const [contactNo, setContactNo] = useState("");
@@ -16,13 +15,12 @@ function Register() {
   const [logo, setLogo] = useState("");
   const [sign, setSign] = useState("");
   const [coupon, setCoupon] = useState("");
-   const [selectedPlan, setSelectedPlan] = useState("");
+  const [selectedPlan, setSelectedPlan] = useState("");
   const [couponApplied, setCouponApplied] = useState(false);
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
   const [isFree, setIsFree] = useState(false);
-  const [paymentToken, setPaymentToken] = useState("");
 
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
