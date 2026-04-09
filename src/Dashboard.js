@@ -509,7 +509,7 @@ const removeCoupon = () => {
     </div>
 
     <button
-  onClick={() => window.open(`http://localhost:3000/report/${item.id}`, "_blank")}
+  onClick={() => window.open(`${window.location.origin}/report/${item.id}`, "_blank")}
   className="bg-blue-500 px-2 py-1 rounded text-xs"
 >
   View Report
