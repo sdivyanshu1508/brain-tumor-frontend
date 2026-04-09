@@ -20,7 +20,6 @@ function Register() {
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
   const [error, setError] = useState("");
-  const [isFree, setIsFree] = useState(false);
 
   axios.defaults.withCredentials = true;
   const navigate = useNavigate();
@@ -95,7 +94,6 @@ function Register() {
 
     setPrice(res.data.price);
     setError("");
-    setIsFree(res.data.price === 0);
     setCouponApplied(true);
   } catch (err) {
     setError("Invalid coupon");
