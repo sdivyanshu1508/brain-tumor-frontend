@@ -10,7 +10,7 @@ function Report() {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    axios.get('${API}/report/${id}', {
+    axios.get(`${API}/report/${id}`, {
       withCredentials: true
     }).then(res => setData(res.data));
   }, [id]);
