@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Glow UI */
+.glow-text {
+  text-shadow: 0 0 10px cyan, 0 0 20px cyan;
+}
+
+.glow-border {
+  box-shadow: 0 0 10px cyan;
+}
+
+.glow-button {
+  background: linear-gradient(45deg, cyan, blue);
+  box-shadow: 0 0 10px cyan;
+}
+
+.glass {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+}
