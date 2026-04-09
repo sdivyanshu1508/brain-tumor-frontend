@@ -141,7 +141,7 @@ if (!data) return <p>Loading...</p>;
           <p><b>Confidence:</b> {Math.round(data.confidence * 100)}%</p>
           <p>
   <b>Tumor Area:</b>{" "}
-  {data.tumor_area > 0 ? `${data.tumor_area} px²` : "Not detected"}
+  {data.tumor_area > 0 ? data.tumor_area + " px²" : "Not detected"}
 </p>
         </div>
 
