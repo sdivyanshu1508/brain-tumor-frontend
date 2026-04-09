@@ -1,5 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
+import API from "./api";
 import { useEffect } from "react";
 import { useRef } from "react";
 import {
@@ -78,7 +79,7 @@ const getPlanLabel = (plan) => {
   item.patient_name?.toLowerCase().includes(search.toLowerCase())
 );
    useEffect(() => {
-  axios.get("http://localhost:5000/history", {
+  axios.get(`${API}/history`, {
   withCredentials: true
 })
     .then(res => {
@@ -137,7 +138,7 @@ useEffect(() => {
   formData.append("file", file);
 
   const res = await axios.post(
-    "http://localhost:5000/predict",
+    `${API}/predict`,
     formData,
     { withCredentials: true }
   );
@@ -195,7 +196,7 @@ useEffect(() => {
     }
 
     await axios.post(
-      "http://localhost:5000/update-account",
+      `${API}/update-account`,
       formData,
       {
         withCredentials: true,
@@ -212,13 +213,13 @@ useEffect(() => {
 };
 
   const logout = async () => {
-  await axios.post("http://localhost:5000/logout", {}, { withCredentials: true });
+  await axios.post(`${API}/logout`, {}, { withCredentials: true });
   window.location.href = "/";
 };
 
 const saveResult = async () => {
   await axios.post(
-    "http://localhost:5000/save",
+    `${API}/save`,
     {
        id: predictionId,
       result,
@@ -237,7 +238,7 @@ const saveResult = async () => {
     setShowForm(false);
 
   const res = await axios.get(
-    "http://localhost:5000/history",
+    `${API}/history`,
     { withCredentials: true }
   );
 
@@ -260,7 +261,7 @@ const saveResult = async () => {
 
 const fetchAccount = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/account", {
+    const res = await axios.get(`${API}/account`, {
       withCredentials: true
     });
     setAccountData(res.data);
@@ -271,7 +272,7 @@ const fetchAccount = async () => {
 
 const fetchSubscription = async () => {
   try {
-    const res = await axios.get("http://localhost:5000/subscription-status", {
+    const res = await axios.get(`${API}/subscription-status`, {
       withCredentials: true
     });
     setSubscription(res.data);
@@ -290,7 +291,7 @@ const handleSubscribe = async () => {
     // ✅ FREE PLAN
     if (price === 0) {
       await axios.post(
-        "http://localhost:5000/subscribe",
+        `${API}/subscribe`,
         {
           plan: selectedPlan,
           coupon: coupon,
@@ -306,7 +307,7 @@ const handleSubscribe = async () => {
 
     // ✅ PAID PLAN → CREATE ORDER
     const res = await axios.post(
-      "http://localhost:5000/create-order",
+      `${API}/create-order`,
       {
         amount: price,
         coupon: coupon,
@@ -327,14 +328,14 @@ const handleSubscribe = async () => {
       handler: async function (response) {
         // ✅ VERIFY PAYMENT
         const verifyRes = await axios.post(
-          "http://localhost:5000/verify-payment",
+          `${API}/verify-payment`,
           response
         );
 
         if (verifyRes.data.status === "success") {
           // ✅ ACTIVATE PLAN AFTER PAYMENT
           await axios.post(
-            "http://localhost:5000/subscribe",
+            `${API}/subscribe`,
             {
               plan: selectedPlan,
               coupon: coupon,
@@ -371,7 +372,7 @@ const handleSubscribe = async () => {
 
 const applyCoupon = async () => {
   try {
-    const res = await axios.post("http://localhost:5000/apply-coupon", { coupon });
+    const res = await axios.post(`${API}/apply-coupon`, { coupon });
     setPrice(res.data.price);
     setCouponApplied(true);
   } catch {
@@ -445,7 +446,7 @@ const removeCoupon = () => {
     <div className="text-center">
       <p className="text-red-400 mb-1">Segmented Tumor</p>
       <img
-        src={`http://localhost:5000/uploads/${segmentedImage}`}
+        src={`${API}/uploads/${segmentedImage}`}
         alt="Segmented"
         className="h-[250px] object-contain border border-cyan-500 rounded hover:scale-105 transition duration-300"
       />

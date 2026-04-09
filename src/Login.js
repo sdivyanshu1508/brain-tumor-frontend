@@ -1,6 +1,7 @@
 import { useState } from "react";
 //import { useLocation } from "react-router-dom";
 import axios from "axios";
+import API from "./api";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -9,7 +10,7 @@ function Login() {
   const login = async () => {
   try {
     const res = await axios.post(
-      "http://localhost:5000/login",
+      `${API}/login`,
       { username, password },
       { withCredentials: true }
     );

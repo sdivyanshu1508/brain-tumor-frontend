@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import API from "./api";
 
 const AdminDashboard = () => {
 const [users, setUsers] = useState([]);
@@ -10,7 +11,7 @@ const [predictions, setPredictions] = useState([]);
   // ✅ Fetch users
   const fetchUsers = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/admin/users", {
+      const res = await axios.get(`${API}/admin/users`, {
         withCredentials: true,
       });
       setUsers(res.data);
@@ -20,7 +21,7 @@ const [predictions, setPredictions] = useState([]);
   };
 
   useEffect(() => {
-  axios.get("http://localhost:5000/admin/users", {
+  axios.get(`${API}/admin/users`, {
     withCredentials: true
   }).then(res => setUsers(res.data));
 }, []);
@@ -29,7 +30,7 @@ const [predictions, setPredictions] = useState([]);
   const fetchPredictions = async () => {
     try {
       const res = await axios.get(
-        "http://localhost:5000/admin/predictions",
+        `${API}/admin/predictions`,
         { withCredentials: true }
       );
       setPredictions(res.data);
@@ -41,7 +42,7 @@ const [predictions, setPredictions] = useState([]);
   const viewDetails = async (userId) => {
   try {
     const res = await axios.get(
-      `http://localhost:5000/admin/user_predictions/${userId}`,
+      `${API}/admin/user_predictions/${userId}`,
       { withCredentials: true }
     );
 
@@ -56,7 +57,7 @@ const [predictions, setPredictions] = useState([]);
   const deleteUser = async (id) => {
   if (!window.confirm("Delete this user?")) return;
 
-  await axios.delete(`http://localhost:5000/admin/delete_user/${id}`, {
+  await axios.delete(`${API}/admin/delete_user/${id}`, {
     withCredentials: true
   });
 
@@ -65,7 +66,7 @@ const [predictions, setPredictions] = useState([]);
 
   const deletePrediction = async (id) => {
   try {
-    await axios.delete(`http://localhost:5000/admin/delete_prediction/${id}`, {
+    await axios.delete(`${API}/admin/delete_prediction/${id}`, {
       withCredentials: true
     });
 

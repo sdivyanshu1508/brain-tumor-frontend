@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
+import API from "./api";
 import { useParams } from "react-router-dom";
 
 function Report() {
@@ -9,7 +10,7 @@ function Report() {
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/report/${id}`, {
+    axios.get('${API}/report/${id}', {
       withCredentials: true
     }).then(res => setData(res.data));
   }, [id]);
@@ -40,7 +41,7 @@ if (!data) return <p>Loading...</p>;
     {/* LOGO */}
     {data.logo && (
       <img
-        src={`http://localhost:5000/uploads/${data.logo}`}
+        src={`${API}/uploads/${data.logo}`}
         alt="logo"
         className="w-20 h-20 rounded-full object-cover border border-gray-300"
       />
@@ -109,7 +110,7 @@ if (!data) return <p>Loading...</p>;
   <div className="text-center">
     <p className="text-cyan-400 mb-1">Original MRI</p>
     <img
-      src={`http://localhost:5000/uploads/${data.image}`}
+      src={`${API}/uploads/${data.image}`}
       alt="MRI"
       className="w-[300px] border rounded"
     />
@@ -120,7 +121,7 @@ if (!data) return <p>Loading...</p>;
     {data.tumor_area > 0 ? (
   <div className="text-center">
     <img
-      src={`http://localhost:5000/uploads/${data.segmented_image}`}
+      src={`${API}/uploads/${data.segmented_image}`}
       alt="Segmented"
       className="w-[300px] border rounded"
     />
@@ -154,7 +155,7 @@ if (!data) return <p>Loading...</p>;
     
     {data.signature && (
       <img
-        src={`http://localhost:5000/uploads/${data.signature}`}
+        src={`${API}/uploads/${data.signature}`}
         alt="signature"
         className="h-16 mx-auto"
       />

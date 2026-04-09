@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "./api";
 
 function Register() {
   const [username, setUsername] = useState("");
@@ -58,7 +59,7 @@ function Register() {
   setError(""); // clear if valid
     try {
       await axios.post(
-        "http://localhost:5000/register",
+        `${API}/register`,
         {
           username,
           password,
@@ -88,7 +89,7 @@ function Register() {
 
   const applyCoupon = async () => {
   try {
-    const res = await axios.post("http://localhost:5000/apply-coupon", {
+    const res = await axios.post(`${API}/apply-coupon`, {
       coupon
     });
 
@@ -172,7 +173,7 @@ const handlePayment = async () => {
 
   try {
     // 1️⃣ Create order
-    const res = await axios.post("http://localhost:5000/create-order", {
+    const res = await axios.post(`${API}/create-order`, {
       amount: price,
       coupon: coupon,
       plan: selectedPlan
@@ -191,7 +192,7 @@ const handlePayment = async () => {
       handler: async function (response) {
         // 2️⃣ Verify payment
         const verifyRes = await axios.post(
-          "http://localhost:5000/verify-payment",
+          `${API}/verify-payment`,
           response
         );
 
