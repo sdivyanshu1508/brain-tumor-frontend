@@ -121,51 +121,52 @@ useEffect(() => {
     );
   };
 
-  const upload = async () => {
-  setLoading(true);  // start animation
-
-  // simulate delay (or replace with API call)
-  setTimeout(() => {
-    setLoading(false); // stop animation
-  }, 3000);
-
+const upload = async () => {
   if (!file) {
     alert("Please select an image first");
     return;
   }
 
-  const formData = new FormData();
-  formData.append("file", file);
+  setLoading(true); // start loader
 
-  const res = await axios.post(
-    `${API}/predict`,
-    formData,
-    { withCredentials: true }
-  );
-  
-  console.log(res.data);
-  setPredictionId(res.data.id);
-  setImageName(res.data.image);
-  setSegmentedImage(res.data.segmented_image);
-  setTumorArea(res.data.tumor_area);
-  setResult(res.data.result);
-  setConfidence(Math.round(res.data.confidence * 100));
+  try {
+    const formData = new FormData();
+    formData.append("file", file);
 
-  // keep image
-  setPreview(URL.createObjectURL(file));
+    const res = await axios.post(
+      `${API}/predict`,
+      formData,
+      { withCredentials: true }
+    );
 
-  // update chart temporarily
-  const tempData = [
-    ...history,
-    {
-      result: res.data.result,
-      confidence: res.data.confidence
-    }
-  ];
-  prepareChart(tempData);
+    console.log(res.data);
 
-  // ✅ SHOW SAVE BUTTON
-  setShowSave(true);
+    setPredictionId(res.data.id);
+    setImageName(res.data.image);
+    setSegmentedImage(res.data.segmented_image);
+    setTumorArea(res.data.tumor_area);
+    setResult(res.data.result);
+    setConfidence(Math.round(res.data.confidence * 100));
+
+    setPreview(URL.createObjectURL(file));
+
+    const tempData = [
+      ...history,
+      {
+        result: res.data.result,
+        confidence: res.data.confidence
+      }
+    ];
+    prepareChart(tempData);
+
+    setShowSave(true);
+
+  } catch (err) {
+    console.error(err);
+    alert("Prediction failed");
+  }
+
+  setLoading(false); // stop loader AFTER API
 };
 
   const updateAccount = async () => {
